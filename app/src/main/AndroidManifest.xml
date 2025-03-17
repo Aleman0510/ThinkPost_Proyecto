@@ -37,6 +37,11 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
+        <activity
+            android:name=".CreatePostActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"/> <!-- Opcional: Usa un tema de diálogo -->
+
     </application>
 
 </manifest>
