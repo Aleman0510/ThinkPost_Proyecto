@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "702798359688",
+    "project_id": "thinkpost-436c1",
+    "storage_bucket": "thinkpost-436c1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702798359688:android:5df0c359f4206b5a12033d",
+        "android_client_info": {
+          "package_name": "com.example.thinkpost"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQwgkEh0A0xl995g3Kzv1_iB9PzSS1DQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

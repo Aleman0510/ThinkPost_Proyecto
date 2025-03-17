@@ -7,18 +7,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailInput, passwordInput;
     private Button loginButton;
     private TextView registerLink;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Inicializar Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
@@ -28,13 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailInput.getText().toString();
-                String password = passwordInput.getText().toString();
+                String email = emailInput.getText().toString().trim();
+                String password = passwordInput.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Por favor, ingresa tus datos", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                    loginUser(email, password);
                 }
             }
         });
@@ -42,10 +51,28 @@ public class LoginActivity extends AppCompatActivity {
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Ir a la pantalla de registro
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+    }
+
+    private void loginUser(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Redirigir a Home Activity
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish(); // Cierra la actividad actual para que no se pueda volver atrás
+                        } else {
+                            // Mostrar error específico
+                            String error = task.getException() != null ?
+                                    task.getException().getMessage() : "Error desconocido";
+                            Toast.makeText(LoginActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
