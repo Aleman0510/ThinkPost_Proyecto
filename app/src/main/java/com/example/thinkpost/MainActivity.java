@@ -16,50 +16,78 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth; // Añade esta línea
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-// Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("username", "comepija999");
-        user.put("prfpicture", "Lovelace");
-        user.put("password", 1815);
-        user.put("email", "comepijas@gmail.com");
-        user.put("descripcion", "Luis es gay");
+        mAuth = FirebaseAuth.getInstance(); // Inicializa Firebase Auth
 
+        // Elimina las llamadas antiguas a crearUsuarioDePrueba() y crearPostDePrueba()
+        // Y reemplaza con este nuevo método mejorado
+        crearUsuarioYPostDePrueba();
+    }
 
+    private void crearUsuarioYPostDePrueba() {
+        String email = "test@example.com";
+        String password = "password123";
 
-// Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+        // Primero crea el usuario en Firebase Authentication
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            String uid = user.getUid();
+
+                            // Ahora crea el documento en Firestore usando el UID de Auth
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("username", "usuario_test");
+                            userData.put("email", email);
+
+                            db.collection("users").document(uid)
+                                    .set(userData)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d(TAG, "Usuario en Firestore creado");
+
+                                        // Ahora crea el post relacionado usando el UID real
+                                        crearPostDePrueba(uid);
+                                    })
+                                    .addOnFailureListener(e -> Log.w(TAG, "Error en Firestore", e));
+                        }
+                    } else {
+                        Log.w(TAG, "Error en Auth", task.getException());
                     }
                 });
+    }
 
+    // Modifica este método para recibir el UID real
+    private void crearPostDePrueba(String userId) {
+        Map<String, Object> post = new HashMap<>();
+        post.put("content", "Este es un post de prueba");
+        post.put("userId", userId); // Usamos el UID real de Auth
+        post.put("username", "usuario_test");
+        post.put("timestamp", FieldValue.serverTimestamp()); // Añade esto también
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        db.collection("posts")
+                .add(post)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d(TAG, "Post creado. ID: " + documentReference.getId());
+                })
+                .addOnFailureListener(e -> {
+                    Log.w(TAG, "Error creando post", e);
+                });
     }
 }

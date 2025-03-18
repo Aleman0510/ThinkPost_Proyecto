@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Redirigir a Home Activity
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
@@ -76,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    // Agregado: Registro de usuario en LoginActivity
     private void registerUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
