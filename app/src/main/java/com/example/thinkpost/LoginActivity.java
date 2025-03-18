@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -65,9 +66,28 @@ public class LoginActivity extends AppCompatActivity {
                             // Redirigir a Home Activity
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
-                            finish(); // Cierra la actividad actual para que no se pueda volver atrás
+                            finish();
                         } else {
-                            // Mostrar error específico
+                            String error = task.getException() != null ?
+                                    task.getException().getMessage() : "Error desconocido";
+                            Toast.makeText(LoginActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    // Agregado: Registro de usuario en LoginActivity
+    private void registerUser(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(LoginActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            finish();
+                        } else {
                             String error = task.getException() != null ?
                                     task.getException().getMessage() : "Error desconocido";
                             Toast.makeText(LoginActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
