@@ -41,6 +41,12 @@
             android:name=".CreatePostActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"/> <!-- Opcional: Usa un tema de diálogo -->
+        <!-- 🔹 NUEVA: Pantalla de Perfil -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
 
     </application>
 
