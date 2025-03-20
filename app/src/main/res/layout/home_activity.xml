@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@android:color/holo_blue_dark"
+        android:background="#1F319D"
         android:padding="16dp"
         android:gravity="center_vertical">
 
@@ -52,7 +52,7 @@
         android:src="@android:drawable/ic_input_add"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:backgroundTint="#1F319D"
         android:contentDescription="Botón de publicar"/>
 
     <!-- Barra de navegación inferior -->

@@ -6,17 +6,6 @@
     android:padding="16dp"
     android:background="#FFFFFF">
 
-    <!-- Botón Regresar (Parte superior) -->
-    <Button
-        android:id="@+id/btnRegresar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Regresar"
-        android:padding="8dp"
-        android:backgroundTint="@android:color/darker_gray"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="16dp"/>
-
     <!-- Contenedor para la información del perfil -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,12 +15,12 @@
         android:layout_marginBottom="24dp">
 
         <!-- Imagen de perfil -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="👤"
-            android:textSize="50sp"
-            android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/perfil"
+            android:layout_gravity="center"
+            android:contentDescription="Imagen de perfil" />
 
         <!-- Nombre del usuario -->
         <TextView
@@ -72,30 +61,58 @@
             android:layout_weight="1"
             android:text="Editar Perfil"
             android:padding="8dp"
-            android:backgroundTint="@android:color/holo_blue_light"
             android:textColor="@android:color/white"
+            android:backgroundTint="#1F319D"
             android:layout_marginEnd="8dp"/>
 
-        <!-- Botón Cerrar Sesión -->
-        <Button
-            android:id="@+id/btnCerrarSesion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_red_light"
-            android:padding="8dp"
-            android:text="Cerrar Sesión"
-            android:textColor="@android:color/white" />
     </LinearLayout>
+
+    <!-- Subtítulo "Tus posts" -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tus posts"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"/>
 
     <!-- Lista de publicaciones -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPosts"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="323dp"
         android:layout_weight="1"
-        android:paddingTop="16dp"/>
+        android:paddingTop="16dp" />
 
-    <!-- Botón Publicar (Parte inferior) -->
+    <!-- Botones (Regresar y Cerrar sesión) al fondo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <!-- Botón Regresar -->
+        <Button
+            android:id="@+id/btnRegresar"
+            android:layout_width="25mm"
+            android:layout_height="wrap_content"
+            android:text="Regresar"
+            android:padding="8dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Botón Cerrar Sesión -->
+        <Button
+            android:id="@+id/btnCerrarSesionBottom"
+            android:layout_width="25mm"
+            android:layout_height="wrap_content"
+            android:text="Cerrar Sesión"
+            android:padding="8dp"
+            android:backgroundTint="@android:color/black"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
 </LinearLayout>

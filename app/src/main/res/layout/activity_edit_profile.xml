@@ -3,19 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:padding="20dp"
+    android:background="#F5F5F5"
+    android:gravity="center">
 
-    <!-- Botón para regresar -->
-    <Button
-        android:id="@+id/btnCancelar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancelar"
-        android:padding="8dp"
-        android:backgroundTint="@android:color/darker_gray"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="16dp"/>
+    <ImageView
+
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/perfil"
+        android:paddingBottom="20dp"/>
+
+
 
     <!-- Contenedor de información del perfil -->
     <LinearLayout
@@ -23,39 +22,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="32dp">
 
-        <!-- Imagen de perfil -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="👤"
-            android:textSize="50sp"
-            android:layout_gravity="center"/>
 
         <!-- Campo de edición para el nombre de usuario -->
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:padding="12dp"
+            android:minHeight="56dp"
+            android:padding="16dp"
             android:hint="Nombre de Usuario"
-            android:textSize="18sp"
-            android:background="@android:drawable/editbox_background"
-            android:layout_marginTop="8dp"/>
+            android:textSize="16sp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="16dp"
+            android:drawableLeft="@android:drawable/ic_menu_myplaces"
+            android:drawablePadding="10dp"/>
 
         <!-- Campo de edición para la descripción del usuario -->
         <EditText
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:padding="12dp"
+            android:minHeight="56dp"
+            android:padding="16dp"
             android:hint="Descripción"
             android:textSize="14sp"
-            android:background="@android:drawable/editbox_background"
-            android:layout_marginTop="8dp"/>
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="16dp"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:drawablePadding="10dp"/>
+
     </LinearLayout>
 
     <!-- Botón para actualizar los datos -->
@@ -64,9 +61,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Actualizar"
-        android:padding="12dp"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:textSize="18sp"
+        android:padding="14dp"
+        android:backgroundTint="#1F319D"
         android:textColor="@android:color/white"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"/>
+
+    <!-- Botón para regresar -->
+    <Button
+        android:id="@+id/btnCancelar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

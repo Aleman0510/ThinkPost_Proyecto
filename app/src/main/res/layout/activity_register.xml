@@ -52,6 +52,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:text="Registrarse"
+        android:backgroundTint="#1F319D"
         android:textColor="@android:color/white"/>
 
     <TextView
