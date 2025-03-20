@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.tvUsername);
         tvDescription = findViewById(R.id.tvDescription);
         btnRegresar = findViewById(R.id.btnRegresar);
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesionBottom);
         btnEditarPerfil = findViewById(R.id.btnEditarPerfil); // Nuevo botón
 
         // Cargar datos del usuario

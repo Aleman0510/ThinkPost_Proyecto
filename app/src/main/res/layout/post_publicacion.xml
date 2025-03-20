@@ -79,5 +79,7 @@
             android:text="Publicar"
             android:textColor="@android:color/white"
             android:backgroundTint="#1F319D"/>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

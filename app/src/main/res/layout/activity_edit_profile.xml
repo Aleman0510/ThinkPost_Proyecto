@@ -34,7 +34,7 @@
             android:padding="16dp"
             android:hint="Nombre de Usuario"
             android:textSize="16sp"
-            android:background="@drawable/edittext_background"
+            android:background="@color/white"
             android:layout_marginBottom="16dp"
             android:drawableLeft="@android:drawable/ic_menu_myplaces"
             android:drawablePadding="10dp"/>
@@ -48,7 +48,7 @@
             android:padding="16dp"
             android:hint="Descripción"
             android:textSize="14sp"
-            android:background="@drawable/edittext_background"
+            android:background="@color/white"
             android:layout_marginBottom="16dp"
             android:drawableLeft="@android:drawable/ic_menu_edit"
             android:drawablePadding="10dp"/>
