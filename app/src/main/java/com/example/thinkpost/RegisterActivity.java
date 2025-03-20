@@ -1,5 +1,6 @@
 package com.example.thinkpost;
 
+import android.content.Intent; // Se agregó esta línea para importar Intent
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView googleLogin, facebookLogin, twitterLogin;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,11 @@ public class RegisterActivity extends AppCompatActivity {
                                     .set(user)
                                     .addOnSuccessListener(aVoid -> {
                                         Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                                        // Redirigir a la actividad de inicio de sesión u otra actividad
+
+                                        // Redirigir a la actividad de inicio de sesión después del registro
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish(); // Finaliza RegisterActivity para que no pueda volver atrás
                                     })
                                     .addOnFailureListener(e -> {
                                         Toast.makeText(RegisterActivity.this, "Error al registrar en la base de datos", Toast.LENGTH_SHORT).show();
@@ -93,4 +97,3 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 }
-
