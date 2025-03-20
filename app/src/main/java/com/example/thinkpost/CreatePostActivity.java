@@ -1,6 +1,7 @@
 // CreatePostActivity.java
 package com.example.thinkpost;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,15 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class CreatePostActivity extends AppCompatActivity {
 
     private EditText etPostContent;
-    private Button btnPublicar;
+    private Button btnPublicar, btnCancelar;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -32,8 +31,17 @@ public class CreatePostActivity extends AppCompatActivity {
 
         etPostContent = findViewById(R.id.etPost);
         btnPublicar = findViewById(R.id.btnPublicar);
+        btnCancelar = findViewById(R.id.btnCancelar); // Referencia al botón Cancelar
 
         btnPublicar.setOnClickListener(v -> publicarContenido());
+
+        // Configurar el botón Cancelar para redirigir a HomeActivity
+        btnCancelar.setOnClickListener(v -> {
+            Intent intent = new Intent(CreatePostActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish(); // Finaliza la actividad actual
+        });
     }
 
     private void publicarContenido() {
@@ -49,7 +57,7 @@ public class CreatePostActivity extends AppCompatActivity {
             return;
         }
 
-        // Obtener datos del usuario desde Firestore (incluyendo password de práctica)
+        // Obtener datos del usuario desde Firestore
         db.collection("users").document(mAuth.getCurrentUser().getUid())
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -61,19 +69,17 @@ public class CreatePostActivity extends AppCompatActivity {
                         post.put("content", contenido);
                         post.put("userId", mAuth.getCurrentUser().getUid());
                         post.put("username", username);
-                        // post.put("timestamp", new Date());
                         post.put("timestamp", FieldValue.serverTimestamp());
 
-                        // Guardar en colección posts
-                        // Dentro del addOnSuccessListener al guardar el post
+                        // Guardar en la colección posts
                         db.collection("posts")
                                 .add(post)
                                 .addOnSuccessListener(documentReference -> {
-                                    Toast.makeText(CreatePostActivity.this, "Publicación exitosa", Toast.LENGTH_SHORT).show(); // Cambiar this por CreatePostActivity.this
+                                    Toast.makeText(CreatePostActivity.this, "Publicación exitosa", Toast.LENGTH_SHORT).show();
                                     finish();
                                 })
                                 .addOnFailureListener(e -> {
-                                    Toast.makeText(CreatePostActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show(); // Aquí también
+                                    Toast.makeText(CreatePostActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 });
                     }
                 })
